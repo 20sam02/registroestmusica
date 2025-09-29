@@ -63,8 +63,16 @@ class Ventana2(tk.Toplevel):
     def __init__(self, master=None):
         super().__init__(master)
         self.title("PROCESO DE REGISTRO PARA LOS PARTICIPANTES")
-        self.geometry("700x700")
+        self.geometry("1366x768")
         tk.Label(self, text= "PORFAVOR INGRESE LOS SIGUIENTES DATOS").pack(pady=1, padx=1)
+
+        #####botones:
+        boton2 = tk.Button(self, text="GUARDAR REGISTRO", cursor="hand2", bg="#00f4fc", width=10, relief="flat", command=self.abrirVentana3)
+        boton2.place(x=500, y=500) 
+        boton2 = tk.Button(self, text="CALCULAR COSTO/MOSTRAR REPORTE", cursor="hand2", bg="#00f4fc", width=10, relief="flat", command=self.abrirVentana3)
+        boton2.place(x=600, y=500) 
+        boton2 = tk.Button(self, text="SALIR", cursor="hand2", bg="#00f4fc", width=10, relief="flat", command=self.abrirVentana3)
+        boton2.place(x=700, y=500) 
 
         ######### codigo para ingresar los datos del usuario#########
 
@@ -126,38 +134,14 @@ class Ventana2(tk.Toplevel):
 
 
 
-###################botones
-        idSaveReg= tk.LabelFrame(self,padx=10, pady=10)
-        idSaveReg.pack(padx=10, pady=40)
-
-        SaveReg=tk.Label(idSaveReg, text="GUARDAR")
-###################
-        idCalc= tk.LabelFrame(self,padx=10, pady=10)
-        idCalc.pack(padx=10, pady=45)
-###################
-        idExit= tk.LabelFrame(self,padx=10, pady=10)
-        idGenLabel.pack(padx=10, pady=50)
-
-        #tecnica artistica, costo por clase,numero de clases, guardar registro, calcular costo/mostrar reporte, salir#
 
 
+##################################################################################################################################
 
+    
+        def reporte(self):
+            Ventana31()
 
-        
-
-
-
-        #LOGICA
-
-
-
-
-
-
-
-        #LOGICA
-        boton1 = tk.Button(self, text="Entrar", cursor="hand2", bg="#00f4fc", width=10, relief="flat", command=self.abrirVentana3)
-        boton1.place(x=400, y=700) 
 
 
     def abrirVentana3(self):
