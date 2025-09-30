@@ -52,14 +52,14 @@ class Main(tk.Tk):
         def abrirVentana2():
             
             self.withdraw()
-            Ventana2(self)
+            GestionParticipantes(self)
                 #Ventana2(self)
                     #Ventana2(self)
                     #self.mainloop()
         self.mainloop()
 
             
-class Ventana2(tk.Toplevel):
+class GestionParticipantes(tk.Toplevel):
     def __init__(self, master=None):
         super().__init__(master)
         self.title("PROCESO DE REGISTRO PARA LOS PARTICIPANTES")
@@ -82,11 +82,13 @@ class Ventana2(tk.Toplevel):
         NombreUsur= tk.StringVar()
         GenUsr=tk.IntVar()
         GenUsr.set(0)
-        TecArt=tk.StringVar()
-        NumClaCant=tk.IntVar()
-        NumClaCant.set(0)
+        self.TecArt=tk.StringVar()
+        self.NumClaCant=tk.IntVar()
+        self.NumClaCant.set(0)
+        cantidadClases=tk.IntVar()
+        cantidadClases.set(0)
 
-
+#Ventana2
         # Variable compartida por los radiobuttons
         opcion = tk.StringVar(value="")  # valor inicial vacío
 
@@ -125,14 +127,14 @@ class Ventana2(tk.Toplevel):
 
         print("Usted seleccionó: ", GenUsr.get())
 
-        tk.Radiobutton(idGenLabel, text="Opción 1", variable=GenUsr, value=1).pack(side=tk.RIGHT)
-        tk.Radiobutton(idGenLabel, text="Opción 2", variable=GenUsr, value=2).pack(side=tk.RIGHT)
+        tk.Radiobutton(idGenLabel, text="Masculino", variable=GenUsr, value=1).pack(side=tk.RIGHT)
+        tk.Radiobutton(idGenLabel, text="Femenino", variable=GenUsr, value=2).pack(side=tk.RIGHT)
         
 
 ###################
         
 
-        opciones= {
+        self.opciones= {
                 "Dibujo": 70000, 
                 "Pintura": 85000, 
                 "Escritura": 100000, 
@@ -141,54 +143,70 @@ class Ventana2(tk.Toplevel):
         }
 
 
-        #idTecArt= tk.LabelFrame(self,padx=10, pady=10)
-        #idTecArt.pack(padx=10, pady=15)
+        idTecArt= tk.LabelFrame(self,padx=10, pady=10)
+        idTecArt.pack(padx=10, pady=15)
 
-       # idlistTec= tk.Label(idTecArt, text="TÉCNICA ARTÍSTICA:")
-        #idlistTec.pack(side=tk.LEFT)
+        idlistTec= tk.Label(idTecArt, text="TÉCNICA ARTÍSTICA:")
+        idlistTec.pack(side=tk.LEFT)
+
+        menuTec=tk.OptionMenu(idTecArt, self.TecArt, *self.opciones.keys(), command=self.actualizar_costo)
+        menuTec.pack(side=tk.RIGHT)
 
 
 ###################
         idCost= tk.LabelFrame(self,padx=10, pady=10)
         idCost.pack(padx=10, pady=15)
+                                           
+        CostoL= tk.Label(idCost, text="COSTO POR CLASE: ")  
+        CostoL.pack(side=tk.LEFT)
 
-        Costo= tk.Label(idCost, text="TÉCNICA ARTÍSTICA: " + str(opciones["Dibujo"]), font=("Arial",12 ))       
-        Costo.pack(side=tk.LEFT)
+        ValorCosto = tk.Label(idCost, textvariable=self.NumClaCant )
+        ValorCosto.pack(side=tk.RIGHT)
 
-        
+#################
+        idNumCla= tk.LabelFrame(self,padx=10, pady=10)
+        idNumCla.pack(padx=10, pady=15)
+
+        NumCla=tk.Label(idNumCla, text="NUMERO DE CLASES: " )
+        NumCla.pack(side=tk.LEFT)
+
+        NumClaEntry = tk.Entry(idNumCla, textvar=cantidadClases, width=10, 
+                          font = ("Roboto", 13), relief="flat", bg="#ffffff")
+        NumClaEntry.pack(side=tk.RIGHT)
+
+
+################# funciónpara actualizar la selección en el label de costo por clase
+
+    def actualizar_costo(self, seleccion):
+        #Cuando el usuario elige una técnica, se actualiza el precio
+        precio = self.opciones.get(seleccion, 0)
+        self.NumClaCant.set(str(precio))
+
+
+        self.mainloop()
+
 
         # Función para actualizar el precio cuando cambie la selección
-        def mostrar_precio(*args):
-                opciones = NumClaCant.get()                 # obtiene lo que seleccionó el usuario
-                opcion = opciones[opciones]               # busca el precio en el diccionario
-                Costo.config(text=f"COSTO POR CLASE: ${opcion}")  # actualiza el Label
+    #                                                                                                                                                                                                                              def mostrar_precio(self):
+                #opcion = NumClaCant.get()                 # obtiene lo que seleccionó el usuario
+               # costo = opciones[opcion]               # busca el precio en el diccionario
+               # idCost.config(text=f"COSTO POR CLASE: ${costo}")  # actualiza el Label
 
         # OptionMenu (lista desplegable)
         #menu = tk.OptionMenu(idCost, NumClaCant, *opciones.keys())
         #menu.pack(side)
 
-        menuTec=tk.OptionMenu(idCost, TecArt, *opciones.keys())
-        menuTec.pack(side=tk.LEFT)
-
-        # Detectar cambios en la selección
-        opcion.trace_add("write", mostrar_precio)
-
-        self.mainloop()
-
         
 
+        # Detectar cambios en la selección
+       # opcion.trace_add("write", mostrar_precio)
+
+
+
 ###################
-        idNumCla= tk.LabelFrame(self,padx=10, pady=10)
-        idNumCla.pack(padx=10, pady=15)
+        
 
-        NumCla=tk.Label(idNumCla, text="NUMERO DE CLASES:")
-        NumCla.pack(side=tk.LEFT)
-
-        NumClaEntry = tk.Entry(idNumCla, textvar=NumClaCant, width=10, 
-                          font = ("Roboto", 13), relief="flat", bg="#ffffff")
-        NumClaEntry.pack(side=tk.RIGHT)
-
-    def reporteV(self, master=None):
+    #def reporteV(self, master=None):
 
 
 
@@ -221,4 +239,12 @@ class Ventana3(tk.Toplevel):
 
 #if __name__=="__main__":
     app = Main()
-    app.mainloop()
+    app.mainloop()  
+        
+
+
+
+
+
+
+
