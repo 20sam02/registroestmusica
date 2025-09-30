@@ -130,11 +130,7 @@ class Ventana2(tk.Toplevel):
         
 
 ###################
-        idTecArt= tk.LabelFrame(self,padx=10, pady=10)
-        idTecArt.pack(padx=10, pady=15)
-
-        idlistTec= tk.Label(idTecArt, text="TÉCNICA ARTÍSTICA:")
-        idlistTec.pack(side=tk.LEFT)
+        
 
         opciones= {
                 "Dibujo": 70000, 
@@ -143,22 +139,47 @@ class Ventana2(tk.Toplevel):
                 "Fotografía" : 90000, 
                 "Grabado" : 75000 
         }
-        menuTec=tk.OptionMenu(idTecArt, TecArt, *opciones)
-        menuTec.pack(side=tk.RIGHT)
+
+
+        #idTecArt= tk.LabelFrame(self,padx=10, pady=10)
+        #idTecArt.pack(padx=10, pady=15)
+
+       # idlistTec= tk.Label(idTecArt, text="TÉCNICA ARTÍSTICA:")
+        #idlistTec.pack(side=tk.LEFT)
 
 
 ###################
         idCost= tk.LabelFrame(self,padx=10, pady=10)
         idCost.pack(padx=10, pady=15)
 
-        Costo= tk.Label(idCost, text="COSTO POR CLASE: " + str(opciones["Dibujo"]), font=("Arial",12 ))
+        Costo= tk.Label(idCost, text="TÉCNICA ARTÍSTICA: " + str(opciones["Dibujo"]), font=("Arial",12 ))       
         Costo.pack(side=tk.LEFT)
+
+        
+
+        # Función para actualizar el precio cuando cambie la selección
+        def mostrar_precio(*args):
+                opciones = NumClaCant.get()                 # obtiene lo que seleccionó el usuario
+                opcion = opciones[opciones]               # busca el precio en el diccionario
+                Costo.config(text=f"COSTO POR CLASE: ${opcion}")  # actualiza el Label
+
+        # OptionMenu (lista desplegable)
+        #menu = tk.OptionMenu(idCost, NumClaCant, *opciones.keys())
+        #menu.pack(side)
+
+        menuTec=tk.OptionMenu(idCost, TecArt, *opciones.keys())
+        menuTec.pack(side=tk.LEFT)
+
+        # Detectar cambios en la selección
+        opcion.trace_add("write", mostrar_precio)
+
+        self.mainloop()
 
         
 
 ###################
         idNumCla= tk.LabelFrame(self,padx=10, pady=10)
-        idNumCla.pack(padx=10, pady=20)
+        idNumCla.pack(padx=10, pady=15)
 
         NumCla=tk.Label(idNumCla, text="NUMERO DE CLASES:")
         NumCla.pack(side=tk.LEFT)
@@ -166,8 +187,9 @@ class Ventana2(tk.Toplevel):
         NumClaEntry = tk.Entry(idNumCla, textvar=NumClaCant, width=10, 
                           font = ("Roboto", 13), relief="flat", bg="#ffffff")
         NumClaEntry.pack(side=tk.RIGHT)
+
     def reporteV(self, master=None):
-        
+
 
 
 
