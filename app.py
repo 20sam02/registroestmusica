@@ -83,6 +83,8 @@ class Ventana2(tk.Toplevel):
         GenUsr=tk.IntVar()
         GenUsr.set(0)
         TecArt=tk.StringVar()
+        NumClaCant=tk.IntVar()
+        NumClaCant.set(0)
 
 
         # Variable compartida por los radiobuttons
@@ -114,7 +116,7 @@ class Ventana2(tk.Toplevel):
 
 ###############
         idGenLabel= tk.LabelFrame(self,padx=10, pady=10)
-        idGenLabel.pack(padx=10, pady=17)
+        idGenLabel.pack(padx=10, pady=15)
 
         idGenoption= tk.Label(idGenLabel, text="GÉNERO: ")
         idGenoption.pack(side=tk.LEFT)
@@ -129,7 +131,7 @@ class Ventana2(tk.Toplevel):
 
 ###################
         idTecArt= tk.LabelFrame(self,padx=10, pady=10)
-        idTecArt.pack(padx=10, pady=23)
+        idTecArt.pack(padx=10, pady=15)
 
         idlistTec= tk.Label(idTecArt, text="TÉCNICA ARTÍSTICA:")
         idlistTec.pack(side=tk.LEFT)
@@ -145,22 +147,27 @@ class Ventana2(tk.Toplevel):
         menuTec.pack(side=tk.RIGHT)
 
 
-
 ###################
         idCost= tk.LabelFrame(self,padx=10, pady=10)
-        idCost.pack(padx=10, pady=26)
+        idCost.pack(padx=10, pady=15)
 
-        Costo= tk.Label(idCost, text="COSTO POR CLASE: " + str(opciones[""]), font=("Arial",12 ))
+        Costo= tk.Label(idCost, text="COSTO POR CLASE: " + str(opciones["Dibujo"]), font=("Arial",12 ))
         Costo.pack(side=tk.LEFT)
 
         
 
 ###################
         idNumCla= tk.LabelFrame(self,padx=10, pady=10)
-        idNumCla.pack(padx=10, pady=29)
+        idNumCla.pack(padx=10, pady=20)
 
         NumCla=tk.Label(idNumCla, text="NUMERO DE CLASES:")
         NumCla.pack(side=tk.LEFT)
+
+        NumClaEntry = tk.Entry(idNumCla, textvar=NumClaCant, width=10, 
+                          font = ("Roboto", 13), relief="flat", bg="#ffffff")
+        NumClaEntry.pack(side=tk.RIGHT)
+    def reporteV(self, master=None):
+        
 
 
 
