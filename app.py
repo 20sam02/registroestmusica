@@ -80,6 +80,13 @@ class Ventana2(tk.Toplevel):
 
         iduser=tk.StringVar()
         NombreUsur= tk.StringVar()
+        GenUsr=tk.IntVar()
+        GenUsr.set(0)
+        TecArt=tk.StringVar()
+
+
+        # Variable compartida por los radiobuttons
+        opcion = tk.StringVar(value="")  # valor inicial vacío
 
 ##############
         idLabel = tk.LabelFrame(self,padx=10, pady=10)
@@ -107,29 +114,52 @@ class Ventana2(tk.Toplevel):
 
 ###############
         idGenLabel= tk.LabelFrame(self,padx=10, pady=10)
-        idGenLabel.pack(padx=10, pady=20)
+        idGenLabel.pack(padx=10, pady=17)
 
         idGenoption= tk.Label(idGenLabel, text="GÉNERO: ")
         idGenoption.pack(side=tk.LEFT)
 
+       
+
+        print("Usted seleccionó: ", GenUsr.get())
+
+        tk.Radiobutton(idGenLabel, text="Opción 1", variable=GenUsr, value=1).pack(side=tk.RIGHT)
+        tk.Radiobutton(idGenLabel, text="Opción 2", variable=GenUsr, value=2).pack(side=tk.RIGHT)
+        
+
 ###################
         idTecArt= tk.LabelFrame(self,padx=10, pady=10)
-        idTecArt.pack(padx=10, pady=25)
+        idTecArt.pack(padx=10, pady=23)
 
         idlistTec= tk.Label(idTecArt, text="TÉCNICA ARTÍSTICA:")
         idlistTec.pack(side=tk.LEFT)
 
+        opciones= {
+                "Dibujo": 70000, 
+                "Pintura": 85000, 
+                "Escritura": 100000, 
+                "Fotografía" : 90000, 
+                "Grabado" : 75000 
+        }
+        menuTec=tk.OptionMenu(idTecArt, TecArt, *opciones)
+        menuTec.pack(side=tk.RIGHT)
+
+
+
 ###################
         idCost= tk.LabelFrame(self,padx=10, pady=10)
-        idCost.pack(padx=10, pady=30)
-        Costo= tk.label(idCost, text="COSTO POR CLASE: ")
+        idCost.pack(padx=10, pady=26)
+
+        Costo= tk.Label(idCost, text="COSTO POR CLASE: " + str(opciones[""]), font=("Arial",12 ))
         Costo.pack(side=tk.LEFT)
+
+        
 
 ###################
         idNumCla= tk.LabelFrame(self,padx=10, pady=10)
-        idNumCla.pack(padx=10, pady=35)
+        idNumCla.pack(padx=10, pady=29)
 
-        NumCla=tk.label(idNumCla, text="NUMERO DE CLASES:")
+        NumCla=tk.Label(idNumCla, text="NUMERO DE CLASES:")
         NumCla.pack(side=tk.LEFT)
 
 
