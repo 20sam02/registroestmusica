@@ -69,7 +69,7 @@ class GestionParticipantes(tk.Toplevel):
         #####botones:
         boton2 = tk.Button(self, text="GUARDAR REGISTRO", cursor="hand2", bg="#00f4fc", width=10, relief="flat", command=self.abrirVentana3)
         boton2.place(x=500, y=500) 
-        boton2 = tk.Button(self, text="CALCULAR COSTO/MOSTRAR REPORTE", cursor="hand2", bg="#00f4fc", width=10, relief="flat", command=self.abrirVentana3)
+        boton2 = tk.Button(self, text="CALCULAR COSTO/MOSTRAR REPORTE", cursor="hand2", bg="#00f4fc", width=10, relief="flat", command=self.calcCostClase)
         boton2.place(x=600, y=500) 
         boton2 = tk.Button(self, text="SALIR", cursor="hand2", bg="#00f4fc", width=10, relief="flat", command=self.abrirVentana3)
         boton2.place(x=700, y=500) 
@@ -78,15 +78,18 @@ class GestionParticipantes(tk.Toplevel):
 
         #variables donde guardaremos los datos del usuario
 
-        iduser=tk.StringVar()
-        NombreUsur= tk.StringVar()
-        GenUsr=tk.IntVar()
-        GenUsr.set(0)
+        self.iduser=tk.StringVar()
+        self.NombreUsur= tk.StringVar()
+        self.GenUsr=tk.StringVar()
+        #IntVar()
+        #self.GenUsr.set(0)
         self.TecArt=tk.StringVar()
         self.NumClaCant=tk.IntVar()
         self.NumClaCant.set(0)
-        cantidadClases=tk.IntVar()
-        cantidadClases.set(0)
+        self.cantidadClases=tk.IntVar()
+        self.cantidadClases.set(0)
+
+        
 
 #Ventana2
         # Variable compartida por los radiobuttons
@@ -99,7 +102,7 @@ class GestionParticipantes(tk.Toplevel):
         idText = tk.Label(idLabel, text="IDENTIFICACION: ")
         idText.pack(side=tk.LEFT) 
 
-        idID = tk.Entry(idLabel, textvar=iduser, width=15, 
+        idID = tk.Entry(idLabel, textvar=self.iduser, width=15, 
                                   font = ("Roboto", 13), relief="flat", bg="#ffffff")
         idID.pack(side=tk.RIGHT)
 
@@ -112,7 +115,7 @@ class GestionParticipantes(tk.Toplevel):
         NameText = tk.Label(NameLabel, text="NOMBRE COMPLETO: ")
         NameText.pack(side=tk.LEFT)
 
-        NameEntry = tk.Entry(NameLabel, textvar=NombreUsur, width=25, 
+        NameEntry = tk.Entry(NameLabel, textvar=self.NombreUsur, width=25, 
                           font = ("Roboto", 13), relief="flat", bg="#ffffff")
         NameEntry.pack(side=tk.RIGHT)
 
@@ -125,10 +128,10 @@ class GestionParticipantes(tk.Toplevel):
 
        
 
-        print("Usted seleccionó: ", GenUsr.get())
+        print("Usted seleccionó: ", self.GenUsr.get())
 
-        tk.Radiobutton(idGenLabel, text="Masculino", variable=GenUsr, value=1).pack(side=tk.RIGHT)
-        tk.Radiobutton(idGenLabel, text="Femenino", variable=GenUsr, value=2).pack(side=tk.RIGHT)
+        tk.Radiobutton(idGenLabel, text="Masculino", variable=self.GenUsr, value="Masculino").pack(side=tk.RIGHT)
+        tk.Radiobutton(idGenLabel, text="Femenino", variable=self.GenUsr, value="Femenino").pack(side=tk.RIGHT)
         
 
 ###################
@@ -170,7 +173,7 @@ class GestionParticipantes(tk.Toplevel):
         NumCla=tk.Label(idNumCla, text="NUMERO DE CLASES: " )
         NumCla.pack(side=tk.LEFT)
 
-        NumClaEntry = tk.Entry(idNumCla, textvar=cantidadClases, width=10, 
+        NumClaEntry = tk.Entry(idNumCla, textvar=self.cantidadClases, width=10, 
                           font = ("Roboto", 13), relief="flat", bg="#ffffff")
         NumClaEntry.pack(side=tk.RIGHT)
 
@@ -183,6 +186,56 @@ class GestionParticipantes(tk.Toplevel):
         self.NumClaCant.set(str(precio))
 
 
+        #self.mainloop()
+
+#funcion para calcular los costos y mostrar el reporte
+    def calcCostClase(self, master=None):
+        super().__init__(master)
+        self.title("PROCESO DE REGISTRO PARA LOS PARTICIPANTES")
+        self.geometry("400x400")
+        tk.Label(self, text= "REPORTE").pack(pady=1, padx=1)
+
+        
+        self.iduser= self.iduser.get()
+        self.NombreUsur= self.NombreUsur.get()
+        self.GenUsr=self.GenUsr.get()
+        self.TecArt=self.TecArt.get()
+        self.NumClaCant=int(self.NumClaCant.get())
+        self.cantidadClases=int(self.cantidadClases.get())
+
+        numcla=self.NumClaCant
+        cantcla=self.cantidadClases
+
+
+        totalPagar= numcla*cantcla
+   
+
+
+        repPart = tk.LabelFrame(self, padx=20, pady=80)
+        repPart.pack(padx=5, pady=5)
+
+        calcRepPart = tk.Label(repPart, text="IDENTIFICACIÓN: " + self.iduser )
+        calcRepPart.pack(anchor="w")
+
+        calcRepPart = tk.Label(repPart, text="NOMBRE COMPLETO: " + self.NombreUsur )
+        calcRepPart.pack(anchor="w")
+
+        calcRepPart = tk.Label(repPart, text="GÉNERO: " + self.GenUsr )
+        calcRepPart.pack(anchor="w")
+
+        calcRepPart = tk.Label(repPart, text="TÉCNICA ARTÍSTICA: " + self.TecArt )
+        calcRepPart.pack(anchor="w")
+
+        calcRepPart = tk.Label(repPart, text="COSTO POR CLASE: " + self.NumClaCant )
+        calcRepPart.pack(anchor="w")
+
+        calcRepPart = tk.Label(repPart, text="CANTIDAD DE CLASES: " + self.cantidadClases)
+        calcRepPart.pack(anchor="w")
+
+        calcRepPart = tk.Label(repPart, text="TOTAL A PAGAR: " + totalPagar)
+        calcRepPart.pack(anchor="w")
+        
+        
         self.mainloop()
 
 
