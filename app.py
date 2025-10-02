@@ -1,8 +1,15 @@
+#SAMIR ANDRÉS QUINTANA VERONA
+#grupo: 55
+#tutor: stevens moreno osorio
+#turbo, 2025
 import tkinter as tk
 import sys
 import getpass
 import tkinter.messagebox
 from tkinter import messagebox
+from datetime import date
+import json
+
 class Main(tk.Tk):
     #en la siguiente funcion establecemos la GUI del programa
     def __init__(self):
@@ -12,6 +19,8 @@ class Main(tk.Tk):
         tk.Label(self, text= "ACADEMIA MELODÍAS PERFECTAS").pack(pady=1)
         tk.Label(self, text= "PROGRAMA PARA EL REGISTRO Y GESTIÓN DE PARTICIPANTES").pack(pady=2)
         tk.Label(self, text= "DESARROLLADOR: SAMIR ANDRÉS QUINTANA VERONA").pack(pady=3)
+
+        #este botón utiliza su función lambda para llamar la siguiente función valiusuario
         boton1 = tk.Button(self, text="Entrar", cursor="hand2", bg="#00f4fc", width=10, relief="flat", command=lambda:valiusuario())
         boton1.place(x=150, y=150) 
 
@@ -26,19 +35,19 @@ class Main(tk.Tk):
         entradapwd.place(x= 50, y = 100)
         
 
-#en esta nueva funcion implementaremos la logica para validar el usuario
+#en esta nueva funcion implementaremos la logica para validar el usuario. 
         #LOGICA
         def valiusuario():
             pwd_ = "123"
             passLogin = entradapwd.get()
-            
+            #con este condicional validaremos de forma sencilla la contraseña del usuario admin
+            #con el comando abrirventana2()ejecutamos la función que abre la ventana GestionParticipantes
             if pwd_ == passLogin:
                 messagebox.showinfo("Login Successful", "Welcome, Admin!")
                 abrirVentana2()
             else:
                 messagebox.showerror("Login Failed", "Invalid username or password")
                 
-                #sys.exit()
          
         
            
@@ -48,7 +57,7 @@ class Main(tk.Tk):
         #Contraseña = tk.Entry(self,)
         #Contraseña.pack
         #Contraseña.get()
-        
+        #aquí abri
         def abrirVentana2():
             
             self.withdraw()
@@ -66,15 +75,21 @@ class GestionParticipantes(tk.Toplevel):
         self.geometry("1366x768")
         tk.Label(self, text= "PORFAVOR INGRESE LOS SIGUIENTES DATOS").pack(pady=1, padx=1)
 
-        #####botones:
-        boton2 = tk.Button(self, text="GUARDAR REGISTRO", cursor="hand2", bg="#00f4fc", width=10, relief="flat", command=self.abrirVentana3)
+        #####botones para guardar registro, mostrar reporte y salir:
+        boton2 = tk.Button(self, text="GUARDAR REGISTRO", cursor="hand2", bg="#00f4fc", width=30, relief="flat", command=self.guardarRegi)
         boton2.place(x=500, y=500) 
-        boton2 = tk.Button(self, text="CALCULAR COSTO/MOSTRAR REPORTE", cursor="hand2", bg="#00f4fc", width=10, relief="flat", command=self.calcCostClase)
-        boton2.place(x=600, y=500) 
-        boton2 = tk.Button(self, text="SALIR", cursor="hand2", bg="#00f4fc", width=10, relief="flat", command=self.abrirVentana3)
-        boton2.place(x=700, y=500) 
+        boton2 = tk.Button(self, text="CALCULAR COSTO/MOSTRAR REPORTE", cursor="hand2", bg="#00f4fc", width=30, relief="flat", command=self.calcCostClase)
+        boton2.place(x=600, y=550) 
+        boton2 = tk.Button(self, text="SALIR", cursor="hand2", bg="#00f4fc", width=10, relief="flat", command=exit)
+        boton2.place(x=700, y=600) 
 
-        ######### codigo para ingresar los datos del usuario#########
+
+
+        #boton2 = tk.Button(self, text="SALIR", cursor="hand2", bg="#00f4fc", width=10, relief="flat", command=self.abrirVentana3)
+        #boton2.place(x=700, y=500) 
+
+
+        ######### codigo para ingresar los datos del usuario#########s
 
         #variables donde guardaremos los datos del usuario
 
@@ -95,7 +110,7 @@ class GestionParticipantes(tk.Toplevel):
         # Variable compartida por los radiobuttons
         opcion = tk.StringVar(value="")  # valor inicial vacío
 
-##############
+############## a continuación, podremos observar las entradas de información para el registro de cada participantes
         idLabel = tk.LabelFrame(self,padx=10, pady=10)
         idLabel.pack(padx=10, pady=10)
 
@@ -134,7 +149,7 @@ class GestionParticipantes(tk.Toplevel):
         tk.Radiobutton(idGenLabel, text="Femenino", variable=self.GenUsr, value="Femenino").pack(side=tk.RIGHT)
         
 
-###################
+################### la siguiente es "la tabla de precios" pero convertida en un diccionario con una clave y un valor
         
 
         self.opciones= {
@@ -152,6 +167,7 @@ class GestionParticipantes(tk.Toplevel):
         idlistTec= tk.Label(idTecArt, text="TÉCNICA ARTÍSTICA:")
         idlistTec.pack(side=tk.LEFT)
 
+        #este menu de opciones con tiene un parametro command, con el que llamaremos a la función actualizar_costo, para poder seleccionar otra opción y que el precio cambie/se actualice
         menuTec=tk.OptionMenu(idTecArt, self.TecArt, *self.opciones.keys(), command=self.actualizar_costo)
         menuTec.pack(side=tk.RIGHT)
 
@@ -202,6 +218,7 @@ class GestionParticipantes(tk.Toplevel):
         self.TecArt=self.TecArt.get()
         self.NumClaCant=self.NumClaCant.get()
         self.cantidadClases=self.cantidadClases.get()
+        self.today = date.today()
 
         #numcla=self.NumClaCant
         #cantcla=self.cantidadClases
@@ -229,13 +246,22 @@ class GestionParticipantes(tk.Toplevel):
         calcRepPart = tk.Label(repPart, text="COSTO POR CLASE: " + str(self.NumClaCant))
         calcRepPart.pack(anchor="w")
 
+        calcRepPart = tk.Label(repPart, text="FECHA DE REGISTRO: " + str(self.today))
+        calcRepPart.pack(anchor="w")
+
         calcRepPart = tk.Label(repPart, text="CANTIDAD DE CLASES: " + str(self.cantidadClases))
         calcRepPart.pack(anchor="w")
 
+        #formula para calcular el numero de clases con el precio por clase
         totalPagar = self.NumClaCant * self.cantidadClases
 
         calcRepPart = tk.Label(repPart, text="TOTAL A PAGAR: " + str(totalPagar))
         calcRepPart.pack(anchor="w")
+
+
+
+        boton1 = tk.Button(self, text="salir", cursor="hand2", bg="#00f4fc", width=10, relief="flat", command=exit)
+        boton1.place(x=200, y=200)
         
         
         self.mainloop()
@@ -271,13 +297,30 @@ class GestionParticipantes(tk.Toplevel):
 ##################################################################################################################################
 
 
+    #con esta función, guardaremos el registro que acabamos de hacer en un archivo .json
 
+    def guardarRegi(self):
 
+        data = {"PARTICIPANTES":[]} #crear un diccionario base
+
+        data["PARTICIPANTES"].append({
+            "IDENTIFICACION": self.iduser.get(),
+            "NOMBRE COMPLETO": self.NombreUsur.get(),
+            "GENERO":self.GenUsr.get(),
+            "TECNICA ARTISTICA":self.TecArt.get(),
+            "COSTO DE CLASE":self.NumClaCant.get(),
+            "CANTIDAD DE CLASES":self.cantidadClases.get(),
+            "FECHA DE REGISTRO":str(date.today())
+            })
+        
+        with open ("registro.json", "w") as archivo_json:
+            json.dump(data, archivo_json, indent=4)
+
+                 
+
+##la siguiente función y la siguiente clase no las puedo eliminar porque el programa se rompe. aún no descubro el porqué
     def abrirVentana3(self):
         Ventana3(self)
-
-
-
 class Ventana3(tk.Toplevel):
     def __init__(self, master=None):
         super().__init__(master)
@@ -287,7 +330,10 @@ class Ventana3(tk.Toplevel):
         #LOGICA
         #LOGICA
         boton1 = tk.Button(self, text="salir", cursor="hand2", bg="#00f4fc", width=10, relief="flat", command=exit)
-        boton1.place(x=200, y=100) 
+        boton1.place(x=200, y=100)    
+
+
+            
 
 #if __name__=="__main__":
     app = Main()
