@@ -1,12 +1,12 @@
 {
     "PARTICIPANTES": [
         {
-            "IDENTIFICACION": "11111",
-            "NOMBRE COMPLETO": "samir",
+            "IDENTIFICACION": "1007504227",
+            "NOMBRE COMPLETO": "samir quintana",
             "GENERO": "Masculino",
-            "TECNICA ARTISTICA": "Escritura",
-            "COSTO DE CLASE": 100000,
-            "CANTIDAD DE CLASES": 10,
+            "TECNICA ARTISTICA": "Dibujo",
+            "COSTO DE CLASE": 70000,
+            "CANTIDAD DE CLASES": 30,
             "FECHA DE REGISTRO": "2025-10-02"
         }
     ]

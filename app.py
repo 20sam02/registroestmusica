@@ -253,9 +253,9 @@ class GestionParticipantes(tk.Toplevel):
         calcRepPart.pack(anchor="w")
 
         #formula para calcular el numero de clases con el precio por clase
-        totalPagar = self.NumClaCant * self.cantidadClases
+        self.totalPagar = self.NumClaCant * self.cantidadClases
 
-        calcRepPart = tk.Label(repPart, text="TOTAL A PAGAR: " + str(totalPagar))
+        calcRepPart = tk.Label(repPart, text="TOTAL A PAGAR: " + str(self.totalPagar))
         calcRepPart.pack(anchor="w")
 
         
@@ -306,7 +306,8 @@ class GestionParticipantes(tk.Toplevel):
             "TECNICA ARTISTICA":self.TecArt.get(),
             "COSTO DE CLASE":self.NumClaCant.get(),
             "CANTIDAD DE CLASES":self.cantidadClases.get(),
-            "FECHA DE REGISTRO":str(date.today())
+            "FECHA DE REGISTRO":str(date.today()),
+            "TOTAL A PAGAR" : self.totalPagar()
             })
         
         with open ("registro.json", "w") as archivo_json:
