@@ -200,14 +200,14 @@ class GestionParticipantes(tk.Toplevel):
         self.NombreUsur= self.NombreUsur.get()
         self.GenUsr=self.GenUsr.get()
         self.TecArt=self.TecArt.get()
-        self.NumClaCant=int(self.NumClaCant.get())
-        self.cantidadClases=int(self.cantidadClases.get())
+        self.NumClaCant=self.NumClaCant.get()
+        self.cantidadClases=self.cantidadClases.get()
 
-        numcla=self.NumClaCant
-        cantcla=self.cantidadClases
+        #numcla=self.NumClaCant
+        #cantcla=self.cantidadClases
 
 
-        totalPagar= numcla*cantcla
+        #totalPagar= numcla*cantcla
    
 
 
@@ -226,13 +226,15 @@ class GestionParticipantes(tk.Toplevel):
         calcRepPart = tk.Label(repPart, text="TÉCNICA ARTÍSTICA: " + self.TecArt )
         calcRepPart.pack(anchor="w")
 
-        calcRepPart = tk.Label(repPart, text="COSTO POR CLASE: " + self.NumClaCant )
+        calcRepPart = tk.Label(repPart, text="COSTO POR CLASE: " + str(self.NumClaCant))
         calcRepPart.pack(anchor="w")
 
-        calcRepPart = tk.Label(repPart, text="CANTIDAD DE CLASES: " + self.cantidadClases)
+        calcRepPart = tk.Label(repPart, text="CANTIDAD DE CLASES: " + str(self.cantidadClases))
         calcRepPart.pack(anchor="w")
 
-        calcRepPart = tk.Label(repPart, text="TOTAL A PAGAR: " + totalPagar)
+        totalPagar = self.NumClaCant * self.cantidadClases
+
+        calcRepPart = tk.Label(repPart, text="TOTAL A PAGAR: " + str(totalPagar))
         calcRepPart.pack(anchor="w")
         
         
@@ -268,9 +270,6 @@ class GestionParticipantes(tk.Toplevel):
 
 ##################################################################################################################################
 
-    
-        def reporte(self):
-            Ventana31()
 
 
 
