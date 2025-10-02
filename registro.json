@@ -1,12 +1,12 @@
 {
     "PARTICIPANTES": [
         {
-            "IDENTIFICACION": "1111",
+            "IDENTIFICACION": "11111",
             "NOMBRE COMPLETO": "samir",
             "GENERO": "Masculino",
-            "TECNICA ARTISTICA": "Pintura",
-            "COSTO DE CLASE": 85000,
-            "CANTIDAD DE CLASES": 8,
+            "TECNICA ARTISTICA": "Escritura",
+            "COSTO DE CLASE": 100000,
+            "CANTIDAD DE CLASES": 10,
             "FECHA DE REGISTRO": "2025-10-02"
         }
     ]

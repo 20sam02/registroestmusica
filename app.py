@@ -258,10 +258,6 @@ class GestionParticipantes(tk.Toplevel):
         calcRepPart = tk.Label(repPart, text="TOTAL A PAGAR: " + str(totalPagar))
         calcRepPart.pack(anchor="w")
 
-
-
-        boton1 = tk.Button(self, text="salir", cursor="hand2", bg="#00f4fc", width=10, relief="flat", command=exit)
-        boton1.place(x=200, y=200)
         
         
         self.mainloop()
